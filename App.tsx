@@ -42,11 +42,11 @@ function TabNavigator() {
             case 'Events':
               iconName = focused ? 'calendar' : 'calendar-outline';
               break;
-            case 'Groups':
-              iconName = focused ? 'people' : 'people-outline';
-              break;
             case 'Check-in':
               iconName = focused ? 'checkmark-circle' : 'checkmark-circle-outline';
+              break;
+            case 'Groups':
+              iconName = focused ? 'people' : 'people-outline';
               break;
             default:
               iconName = 'help-outline';
@@ -77,27 +77,27 @@ function TabNavigator() {
              <Tab.Screen 
          name="Home" 
          component={HomeScreen}
-         options={{ title: 'Home' }}
+         options={{ headerShown: false }}
        />
        <Tab.Screen 
          name="Give" 
          component={GiveScreen}
-         options={{ title: 'Give' }}
+         options={{ headerShown: false }}
        />
        <Tab.Screen 
          name="Events" 
          component={EventsScreen}
-         options={{ title: 'Events' }}
+         options={{ headerShown: false }}
        />
        <Tab.Screen 
          name="Groups" 
          component={GroupsScreen}
-         options={{ title: 'Groups' }}
+         options={{ headerShown: false }}
        />
        <Tab.Screen 
          name="Check-in" 
          component={CheckInScreen}
-         options={{ title: 'Check-in' }}
+         options={{ headerShown: false }}
        />
     </Tab.Navigator>
   );
