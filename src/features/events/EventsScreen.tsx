@@ -198,38 +198,50 @@ export default function EventsScreen() {
   const EventItem = ({ event }: { event: Event }) => (
     <TouchableOpacity onPress={() => handleEventPress(event)}>
       <BlurView intensity={20} style={styles.eventItem}>
-        {/* First Row: Date Marker + Event Details + Event Image */}
-        <View style={styles.categoryBadge}>
-                 <Ionicons 
-                   name={getCategoryIcon(event.category) as any} 
-                   size={12} 
-                   color={getCategoryColor(event.category)} 
-                 />
-                 <Text style={[styles.categoryText, { color: getCategoryColor(event.category) }]}>
-                   {event.category.replace('-', ' ').toUpperCase()}
-                 </Text>
-               </View>
-        <View style={styles.firstRow}>
-          
-          {/* Date Marker */}
-          <View style={styles.dateMarker}>
-            <Text style={styles.dayOfWeek}>{event.dayOfWeek}</Text>
-            <Text style={styles.dayNumber}>{event.dayNumber}</Text>
-          </View>
+                 
 
-                     {/* Event Details */}
-           <View style={styles.eventDetails}>
-             <View style={styles.eventHeader}>
-               
-               <Text style={styles.eventTitle}>{event.title}</Text>
-             </View>
-           </View>
+                   {/* Two Column Layout */}
+          <View style={styles.twoColumnLayout}>
+            {/* Column 1: Category Badge + Date Marker + Event Title */}
+            <View style={styles.leftColumn}>
+              {/* Category Badge */}
+              <View style={styles.categoryBadge}>
+                <Ionicons 
+                  name={getCategoryIcon(event.category) as any} 
+                  size={12} 
+                  color={getCategoryColor(event.category)} 
+                />
+                <Text style={[styles.categoryText, { color: getCategoryColor(event.category) }]}>
+                  {event.category.replace('-', ' ').toUpperCase()}
+                </Text>
+              </View>
 
-          {/* Event Image */}
-          <View style={styles.eventImageContainer}>
-            <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />            
+              <View style={styles.firstRow}>
+                
+                {/* Date Marker */}
+                <View style={styles.dateMarker}>
+                  <Text style={styles.dayOfWeek}>{event.dayOfWeek}</Text>
+                  <Text style={styles.dayNumber}>{event.dayNumber}</Text>
+                </View>
+
+                {/* Event Details */}
+                <View style={styles.eventDetails}>
+                   <View style={styles.eventHeader}>
+                     <Text style={styles.eventTitle} numberOfLines={0}>
+                       {event.title}
+                     </Text>
+                   </View>
+                 </View>
+              </View>
+            </View>
+
+            {/* Column 2: Event Image */}
+            <View style={styles.rightColumn}>
+              <View style={styles.eventImageContainer}>
+                <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />            
+              </View>
+            </View>
           </View>
-        </View>
 
         {/* Second Row: Location */}
         <View style={styles.secondRow}>
@@ -240,16 +252,22 @@ export default function EventsScreen() {
             </View>
           )}
         </View>
+                 {/* Third Row: Time (Left) + Recurring (Right) */}
+         <View style={styles.thirdRow}>
+           {/* Time - Left */}
+           <View style={styles.timeContainer}>
+             <Ionicons name="time" size={12} color="#666" />
+             <Text style={styles.timeText}>{event.startTime} - {event.endTime}</Text>
+           </View>
 
-        {/* Third Row: Recurring */}
-        {event.isRecurring && (
-          <View style={styles.thirdRow}>
-            <View style={styles.recurringBadge}>
-              <Ionicons name="repeat" size={12} color="#666" />
-              <Text style={styles.recurringText}>{event.recurringPattern}</Text>
-            </View>
-          </View>
-        )}
+           {/* Recurring - Right */}
+           {event.isRecurring && (
+             <View style={styles.recurringBadge}>
+               <Ionicons name="repeat" size={12} color="#666" />
+               <Text style={styles.recurringText}>{event.recurringPattern}</Text>
+             </View>
+           )}
+         </View>
       </BlurView>
     </TouchableOpacity>
   );
@@ -386,6 +404,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
   },
+  twoColumnLayout: {
+    flexDirection: 'row',
+    marginBottom: 15,
+  },
+  leftColumn: {
+    flex: 1,
+    marginRight: 20,
+    justifyContent: 'space-between',
+  },
+  rightColumn: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    paddingTop: 10,
+  },
   secondRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -396,11 +428,16 @@ const styles = StyleSheet.create({
   },
   thirdRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 10,
   },
+
   locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  timeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -420,20 +457,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
   },
-  eventDetails: {
-    flex: 1,
-    marginRight: 20,
-    marginLeft: 15,
-  },
-  eventHeader: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  eventTime: {
-    fontSize: 14,
-    color: '#666',
-    flex: 1,
-  },
+
   categoryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -443,17 +467,31 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     minWidth: 80,
     alignSelf: 'flex-start',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   categoryText: {
     fontSize: 10,
     fontWeight: '600',
     marginLeft: 4,
   },
+  eventDetails: {
+    flex: 1,
+    marginLeft: 15,
+  },
+  eventHeader: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  eventTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   eventTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    lineHeight: 22,
+    flexWrap: 'wrap',
   },
   eventLocation: {
     fontSize: 14,
@@ -470,6 +508,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  timeText: {
+    fontSize: 12,
+    color: '#666',
+    marginLeft: 4,
+  },
   recurringText: {
     fontSize: 12,
     color: '#666',
@@ -478,7 +521,7 @@ const styles = StyleSheet.create({
   eventImageContainer: {
     position: 'relative',
     width: 120,
-    height: 80,
+    height: 100,
     borderRadius: 10,
     overflow: 'hidden',
   },
