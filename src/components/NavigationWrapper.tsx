@@ -12,6 +12,8 @@ import CheckInScreen from '../features/checkin/CheckInScreen';
 import MoreScreen from '../features/more/MoreScreen';
 import WorshipScreen from '../features/worship/WorshipScreen';
 import ScheduleDetailScreen from '../features/worship/ScheduleDetailScreen';
+import SongEditScreen from '../features/worship/SongEditScreen';
+import EventDetailsScreen from '../features/events/EventDetailsScreen';
 import KidsScreen from '../features/kids/KidsScreen';
 import DevotionalScreen from '../features/devotional/DevotionalScreen';
 import ProfileScreen from '../features/profile/ProfileScreen';
@@ -69,11 +71,26 @@ export default function NavigationWrapper() {
               title: ''
             }}
           />
-          <Stack.Screen 
-            name="Kids" 
-            component={KidsScreen}
-            options={{ title: 'Kids Ministry' }}
-          />
+                            <Stack.Screen
+                    name="SongEdit"
+                    component={SongEditScreen}
+                    options={{
+                      headerShown: true,
+                      title: ''
+                    }}
+                  />
+                  <Stack.Screen
+                    name="EventDetails"
+                    component={EventDetailsScreen}
+                    options={{
+                      headerShown: false
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Kids"
+                    component={KidsScreen}
+                    options={{ title: 'Kids Ministry' }}
+                  />
           <Stack.Screen 
             name="Devotional" 
             component={DevotionalScreen}

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  Linking,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
@@ -21,8 +22,13 @@ interface Song {
   genre: string;
   key: string;
   hasLyrics: boolean;
+  hasChords: boolean;
   hasAudio: boolean;
   hasVideo: boolean;
+  lyricsUrl?: string;
+  chordsUrl?: string;
+  audioUrl?: string;
+  videoUrl?: string;
 }
 
 interface Participant {
@@ -62,52 +68,72 @@ export default function ScheduleDetailScreen() {
     daysAgo: '2 days ago',
     confirmedCount: 3,
     totalParticipants: 4,
-    songs: [
-      {
-        id: '1',
-        title: 'I Surrender',
-        artist: 'Leonardo Gonçalves',
-        version: 'Original Version',
-        genre: 'Praise',
-        key: 'C',
-        hasLyrics: true,
-        hasAudio: true,
-        hasVideo: true,
-      },
-      {
-        id: '2',
-        title: 'In Your Presence',
-        artist: 'Nivea Soares',
-        version: 'Original Version',
-        genre: 'Praise',
-        key: 'G',
-        hasLyrics: true,
-        hasAudio: true,
-        hasVideo: true,
-      },
-      {
-        id: '3',
-        title: 'Be Exalted',
-        artist: 'Sozo',
-        version: 'Original Version',
-        genre: 'Contemplation, Worship',
-        key: 'A',
-        hasLyrics: true,
-        hasAudio: true,
-        hasVideo: true,
-      },
-      {
-        id: '4',
-        title: 'Agnus Dei / Can Live Here',
-        artist: 'Projeto Vida Music',
-        version: 'Original Version',
-        genre: 'Worship',
-        key: 'D',
-        hasLyrics: true,
-        hasAudio: true,
-        hasVideo: true,
-      },
-    ],
+         songs: [
+               {
+          id: '1',
+          title: 'I Surrender',
+          artist: 'Hillsong',
+          version: 'Original Version',
+          genre: 'Praise',
+          key: 'C',
+          hasLyrics: true,
+          hasChords: true,
+          hasAudio: true,
+          hasVideo: true,
+          lyricsUrl: 'https://www.letras.mus.br/hillsong-united/1981845',
+          chordsUrl: 'https://www.cifraclub.com.br/hillsong-united/i-surrender/',
+          audioUrl: 'https://www.youtube.com/watch?v=WVegVjHnm3s',
+          videoUrl: 'https://www.youtube.com/watch?v=s7jXASBWwwI',
+        },
+               {
+          id: '2',
+          title: 'In Your Presence',
+          artist: 'Nivea Soares',
+          version: 'Original Version',
+          genre: 'Praise',
+          key: 'G',
+          hasLyrics: true,
+          hasChords: true,
+          hasAudio: true,
+          hasVideo: true,
+          lyricsUrl: 'https://www.letras.mus.br/nivea-soares/in-your-presence/',
+          chordsUrl: 'https://www.cifraclub.com.br/nivea-soares/in-your-presence/',
+          audioUrl: 'https://www.youtube.com/watch?v=example2',
+          videoUrl: 'https://www.youtube.com/watch?v=example2',
+        },
+               {
+          id: '3',
+          title: 'Be Exalted',
+          artist: 'Sozo',
+          version: 'Original Version',
+          genre: 'Contemplation, Worship',
+          key: 'A',
+          hasLyrics: true,
+          hasChords: true,
+          hasAudio: true,
+          hasVideo: true,
+          lyricsUrl: 'https://www.letras.mus.br/sozo/be-exalted/',
+          chordsUrl: 'https://www.cifraclub.com.br/sozo/be-exalted/',
+          audioUrl: 'https://www.youtube.com/watch?v=example3',
+          videoUrl: 'https://www.youtube.com/watch?v=example3',
+        },
+        {
+          id: '4',
+          title: 'Agnus Dei / Can Live Here',
+          artist: 'Projeto Vida Music',
+          version: 'Original Version',
+          genre: 'Worship',
+          key: 'D',
+          hasLyrics: true,
+          hasChords: true,
+          hasAudio: true,
+          hasVideo: true,
+          lyricsUrl: 'https://www.letras.mus.br/projeto-vida-music/agnus-dei/',
+          chordsUrl: 'https://www.cifraclub.com.br/projeto-vida-music/agnus-dei/',
+          audioUrl: 'https://www.youtube.com/watch?v=example4',
+          videoUrl: 'https://www.youtube.com/watch?v=example4',
+        },
+     ],
     participants: [
       {
         id: '1',
@@ -162,31 +188,52 @@ export default function ScheduleDetailScreen() {
   };
 
   const SongItem = ({ song, index }: { song: Song; index: number }) => (
-    <BlurView intensity={20} style={styles.songItem}>
-      <View style={styles.songNumber}>
-        <Text style={styles.songNumberText}>{index + 1}ª</Text>
-      </View>
-      
-      <View style={styles.songInfo}>
-        <Text style={styles.songTitle}>{song.title}</Text>
-        <Text style={styles.songArtist}>{song.artist}</Text>
-        <Text style={styles.songDetails}>
-          {song.version} • {song.genre} • Key: {song.key}
-        </Text>
-      </View>
-      
-      <View style={styles.songActions}>
-        <TouchableOpacity style={[styles.actionIcon, song.hasLyrics && styles.actionIconActive]}>
-          <Text style={styles.actionIconText}>A</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionIcon, song.hasAudio && styles.actionIconActive]}>
-          <Ionicons name="musical-notes" size={16} color={song.hasAudio ? '#4CAF50' : '#ccc'} />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.actionIcon, song.hasVideo && styles.actionIconActive]}>
-          <Ionicons name="videocam" size={16} color={song.hasVideo ? '#FF6B6B' : '#ccc'} />
-        </TouchableOpacity>
-      </View>
-    </BlurView>
+    <TouchableOpacity onPress={() => navigation.navigate('SongEdit', { songId: song.id })}>
+      <BlurView intensity={20} style={styles.songItem}>
+        <View style={styles.songNumber}>
+          <Text style={styles.songNumberText}>{index + 1}ª</Text>
+        </View>
+        
+        <View style={styles.songInfo}>
+          <Text style={styles.songTitle}>{song.title}</Text>
+          <Text style={styles.songArtist}>{song.artist}</Text>
+          <Text style={styles.songDetails}>
+            {song.version} • {song.genre} • Key: {song.key}
+          </Text>
+        </View>
+        
+                 <View style={styles.songActions}>
+           <TouchableOpacity 
+             style={[styles.actionIcon, song.hasLyrics && styles.actionIconActive]}
+             onPress={() => song.lyricsUrl &&  Linking.openURL(`${song.lyricsUrl}`)}
+             disabled={!song.hasLyrics || !song.lyricsUrl}
+           >
+             <Text style={styles.actionIconText}>A</Text>
+           </TouchableOpacity>
+           <TouchableOpacity 
+             style={[styles.actionIcon, song.hasChords && styles.actionIconActive]}
+             onPress={() => song.chordsUrl && Linking.openURL(`${song.chordsUrl}`)}
+             disabled={!song.hasChords || !song.chordsUrl}
+           >
+             <Ionicons name="musical-notes-outline" size={16} color={song.hasChords ? '#FFA500' : '#ccc'} />
+           </TouchableOpacity>
+           <TouchableOpacity 
+             style={[styles.actionIcon, song.hasAudio && styles.actionIconActive]}
+             onPress={() => song.audioUrl && Linking.openURL(`${song.audioUrl}`)}
+             disabled={!song.hasAudio || !song.audioUrl}
+           >
+             <Ionicons name="musical-notes" size={16} color={song.hasAudio ? '#4CAF50' : '#ccc'} />
+           </TouchableOpacity>
+           <TouchableOpacity 
+             style={[styles.actionIcon, song.hasVideo && styles.actionIconActive]}
+             onPress={() => song.videoUrl &&  Linking.openURL(`${song.videoUrl}`)}
+             disabled={!song.hasVideo || !song.videoUrl}
+           >
+             <Ionicons name="videocam" size={16} color={song.hasVideo ? '#FF6B6B' : '#ccc'} />
+           </TouchableOpacity>
+         </View>
+      </BlurView>
+    </TouchableOpacity>
   );
 
   const ParticipantItem = ({ participant }: { participant: Participant }) => (
@@ -454,17 +501,19 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 15,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    minHeight: 120,
   },
   songNumber: {
     width: 40,
     alignItems: 'center',
     marginRight: 15,
+    marginTop: 5,
   },
   songNumberText: {
     fontSize: 18,
@@ -490,17 +539,19 @@ const styles = StyleSheet.create({
     color: '#999',
   },
   songActions: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 120,
   },
   actionIcon: {
     width: 30,
-    height: 30,
+    height: 25,
     borderRadius: 15,
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 8,
+    marginVertical: 2,
   },
   actionIconActive: {
     backgroundColor: '#e8f5e8',
