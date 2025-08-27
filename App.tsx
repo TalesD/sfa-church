@@ -60,9 +60,9 @@ function TabNavigator() {
           backgroundColor: 'rgba(26, 26, 46, 0.95)',
           borderTopColor: 'rgba(255, 255, 255, 0.1)',
           borderTopWidth: 1,
-          paddingBottom: 5,
-          paddingTop: 5,
-          height: 60,
+          paddingBottom: 15, // Increase bottom padding
+          paddingTop: 10, // Increase top padding
+          height: 80, // Increase height
         },
         headerStyle: {
           backgroundColor: 'transparent',
@@ -74,31 +74,31 @@ function TabNavigator() {
         },
       })}
     >
-      <Tab.Screen 
-        name="Home" 
-        component={HomeScreen}
-        options={{ title: 'Início' }}
-      />
-      <Tab.Screen 
-        name="Give" 
-        component={GiveScreen}
-        options={{ title: 'Oferecer' }}
-      />
-      <Tab.Screen 
-        name="Events" 
-        component={EventsScreen}
-        options={{ title: 'Eventos' }}
-      />
-      <Tab.Screen 
-        name="Groups" 
-        component={GroupsScreen}
-        options={{ title: 'Grupos' }}
-      />
-      <Tab.Screen 
-        name="Check-in" 
-        component={CheckInScreen}
-        options={{ title: 'Presença' }}
-      />
+             <Tab.Screen 
+         name="Home" 
+         component={HomeScreen}
+         options={{ title: 'Home' }}
+       />
+       <Tab.Screen 
+         name="Give" 
+         component={GiveScreen}
+         options={{ title: 'Give' }}
+       />
+       <Tab.Screen 
+         name="Events" 
+         component={EventsScreen}
+         options={{ title: 'Events' }}
+       />
+       <Tab.Screen 
+         name="Groups" 
+         component={GroupsScreen}
+         options={{ title: 'Groups' }}
+       />
+       <Tab.Screen 
+         name="Check-in" 
+         component={CheckInScreen}
+         options={{ title: 'Check-in' }}
+       />
     </Tab.Navigator>
   );
 }
@@ -129,26 +129,26 @@ export default function App() {
               component={TabNavigator}
               options={{ headerShown: false }}
             />
-            <Stack.Screen 
-              name="Worship" 
-              component={WorshipScreen}
-              options={{ title: 'Adoração' }}
-            />
-            <Stack.Screen 
-              name="Kids" 
-              component={KidsScreen}
-              options={{ title: 'Ministério Infantil' }}
-            />
-            <Stack.Screen 
-              name="Devotional" 
-              component={DevotionalScreen}
-              options={{ title: 'Devocional' }}
-            />
-            <Stack.Screen 
-              name="Profile" 
-              component={ProfileScreen}
-              options={{ title: 'Perfil' }}
-            />
+                         <Stack.Screen 
+               name="Worship" 
+               component={WorshipScreen}
+               options={{ title: 'Worship' }}
+             />
+             <Stack.Screen 
+               name="Kids" 
+               component={KidsScreen}
+               options={{ title: 'Kids Ministry' }}
+             />
+             <Stack.Screen 
+               name="Devotional" 
+               component={DevotionalScreen}
+               options={{ title: 'Devotional' }}
+             />
+             <Stack.Screen 
+               name="Profile" 
+               component={ProfileScreen}
+               options={{ title: 'Profile' }}
+             />
           </Stack.Navigator>
           <StatusBar style="light" />
         </LinearGradient>

@@ -84,8 +84,8 @@ export default function HomeScreen() {
         <BlurView intensity={20} style={styles.header}>
           <View style={styles.headerContent}>
             <View>
-              <Text style={styles.welcomeText}>Bem-vindo,</Text>
-              <Text style={styles.userName}>{user?.name || 'Visitante'}</Text>
+                             <Text style={styles.welcomeText}>Welcome,</Text>
+               <Text style={styles.userName}>{user?.name || 'Guest'}</Text>
             </View>
             <TouchableOpacity
               style={styles.profileButton}
@@ -98,46 +98,46 @@ export default function HomeScreen() {
 
         {/* Quick Actions */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Ações Rápidas</Text>
+          <Text style={styles.sectionTitle}>Quick Actions</Text>
           <View style={styles.quickActionsGrid}>
-            <QuickActionButton
-              icon="calendar-outline"
-              title="Próximo Evento"
-              subtitle="Domingo 10:00"
-              onPress={() => handleQuickAction('Ver próximo evento')}
-              color="#FF6B6B"
-            />
-            <QuickActionButton
-              icon="people-outline"
-              title="Meu Grupo"
-              subtitle="Jovens"
-              onPress={() => handleQuickAction('Ver meu grupo')}
-              color="#4ECDC4"
-            />
-            <QuickActionButton
-              icon="heart-outline"
-              title="Devocional"
-              subtitle="Hoje"
-              onPress={() => navigateToScreen('Devotional')}
-              color="#45B7D1"
-            />
-            <QuickActionButton
-              icon="card-outline"
-              title="Oferecer"
-              subtitle="Dízimo & Ofertas"
-              onPress={() => handleQuickAction('Fazer oferta')}
-              color="#96CEB4"
-            />
+                         <QuickActionButton
+               icon="calendar-outline"
+               title="Next Event"
+               subtitle="Sunday 10:00"
+               onPress={() => handleQuickAction('View next event')}
+               color="#FF6B6B"
+             />
+             <QuickActionButton
+               icon="people-outline"
+               title="My Group"
+               subtitle="Youth"
+               onPress={() => handleQuickAction('View my group')}
+               color="#4ECDC4"
+             />
+             <QuickActionButton
+               icon="heart-outline"
+               title="Devotional"
+               subtitle="Today"
+               onPress={() => navigateToScreen('Devotional')}
+               color="#45B7D1"
+             />
+             <QuickActionButton
+               icon="card-outline"
+               title="Give"
+               subtitle="Tithes & Offerings"
+               onPress={() => handleQuickAction('Make offering')}
+               color="#96CEB4"
+             />
           </View>
         </View>
 
         {/* More Menu */}
         <View style={styles.section}>
-          <TouchableOpacity
-            style={styles.moreButton}
-            onPress={() => setShowMoreMenu(!showMoreMenu)}
-          >
-            <Text style={styles.moreButtonText}>Mais Opções</Text>
+                     <TouchableOpacity
+             style={styles.moreButton}
+             onPress={() => setShowMoreMenu(!showMoreMenu)}
+           >
+             <Text style={styles.moreButtonText}>More Options</Text>
             <Ionicons
               name={showMoreMenu ? 'chevron-up' : 'chevron-down'}
               size={20}
@@ -147,38 +147,38 @@ export default function HomeScreen() {
 
           {showMoreMenu && (
             <BlurView intensity={20} style={styles.moreMenu}>
-                             <MoreMenuItem
+                                            <MoreMenuItem
                  icon="musical-notes"
-                 title="Cronograma de Adoração"
+                 title="Worship Schedule"
                  onPress={() => navigateToScreen('Worship')}
                  visible={hasMinistryAccess(Ministry.WORSHIP)}
                />
                <MoreMenuItem
                  icon="school"
-                 title="Ministério Infantil"
+                 title="Kids Ministry"
                  onPress={() => navigateToScreen('Kids')}
                  visible={hasMinistryAccess(Ministry.KIDS)}
                />
-              <MoreMenuItem
-                icon="book"
-                title="Devocional Diário"
-                onPress={() => navigateToScreen('Devotional')}
-                visible={true}
-              />
+               <MoreMenuItem
+                 icon="book"
+                 title="Daily Devotional"
+                 onPress={() => navigateToScreen('Devotional')}
+                 visible={true}
+               />
             </BlurView>
           )}
         </View>
 
         {/* Announcements */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Anúncios</Text>
-          <BlurView intensity={20} style={styles.announcementCard}>
-            <Text style={styles.announcementTitle}>🎉 Celebração Especial</Text>
-            <Text style={styles.announcementText}>
-              Este domingo teremos uma celebração especial com louvor e adoração. 
-              Não perca!
-            </Text>
-            <Text style={styles.announcementDate}>Domingo, 10:00</Text>
+                   <Text style={styles.sectionTitle}>Announcements</Text>
+         <BlurView intensity={20} style={styles.announcementCard}>
+           <Text style={styles.announcementTitle}>🎉 Special Celebration</Text>
+           <Text style={styles.announcementText}>
+             This Sunday we will have a special celebration with praise and worship. 
+             Don't miss it!
+           </Text>
+           <Text style={styles.announcementDate}>Sunday, 10:00</Text>
           </BlurView>
         </View>
       </ScrollView>
@@ -192,6 +192,8 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     padding: 20,
+    paddingTop: 60, // Add top padding to avoid status bar
+    paddingBottom: 100, // Add bottom padding to avoid tab bar
   },
   header: {
     borderRadius: 20,
