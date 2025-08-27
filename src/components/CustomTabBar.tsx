@@ -12,8 +12,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from '../store/AuthContext';
 import { COLORS, SHADOWS, LAYOUT, SIZES } from '../constants/theme';
 
-// Import icons from react-native-vector-icons
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// Import icons from @expo/vector-icons
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 

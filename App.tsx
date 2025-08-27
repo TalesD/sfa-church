@@ -13,6 +13,7 @@ import GiveScreen from './src/features/give/GiveScreen';
 import EventsScreen from './src/features/events/EventsScreen';
 import GroupsScreen from './src/features/groups/GroupsScreen';
 import CheckInScreen from './src/features/checkin/CheckInScreen';
+import MoreScreen from './src/features/more/MoreScreen';
 import WorshipScreen from './src/features/worship/WorshipScreen';
 import KidsScreen from './src/features/kids/KidsScreen';
 import DevotionalScreen from './src/features/devotional/DevotionalScreen';
@@ -45,9 +46,9 @@ function TabNavigator() {
             case 'Check-in':
               iconName = focused ? 'checkmark-circle' : 'checkmark-circle-outline';
               break;
-            case 'Groups':
-              iconName = focused ? 'people' : 'people-outline';
-              break;
+                     case 'More':
+           iconName = focused ? 'ellipsis-horizontal' : 'ellipsis-horizontal';
+           break;
             default:
               iconName = 'help-outline';
           }
@@ -95,8 +96,8 @@ function TabNavigator() {
          options={{ headerShown: false }}
        />
        <Tab.Screen 
-         name="Groups" 
-         component={GroupsScreen}
+         name="More" 
+         component={MoreScreen}
          options={{ headerShown: false }}
        />
     </Tab.Navigator>

@@ -16,14 +16,13 @@ import { useAuth, Ministry } from '../../contexts/AuthContext';
 export default function HomeScreen() {
   const navigation = useNavigation();
   const { user, hasMinistryAccess, hasRoleAccess } = useAuth();
-  const [showMoreMenu, setShowMoreMenu] = useState(false);
+
 
   const handleQuickAction = (action: string) => {
     Alert.alert('Ação Rápida', `${action} executada com sucesso!`);
   };
 
   const navigateToScreen = (screenName: string) => {
-    setShowMoreMenu(false);
     // @ts-ignore
     navigation.navigate(screenName);
   };
@@ -52,27 +51,7 @@ export default function HomeScreen() {
     </TouchableOpacity>
   );
 
-  const MoreMenuItem = ({ 
-    icon, 
-    title, 
-    onPress, 
-    visible = true 
-  }: {
-    icon: keyof typeof Ionicons.glyphMap;
-    title: string;
-    onPress: () => void;
-    visible?: boolean;
-  }) => {
-    if (!visible) return null;
-    
-    return (
-      <TouchableOpacity style={styles.moreMenuItem} onPress={onPress}>
-        <Ionicons name={icon} size={20} color="#ffffff" />
-        <Text style={styles.moreMenuItemText}>{title}</Text>
-        <Ionicons name="chevron-forward" size={16} color="#ffffff" />
-      </TouchableOpacity>
-    );
-  };
+
 
   return (
     <LinearGradient
@@ -225,37 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#cccccc',
   },
-  moreButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 15,
-    borderRadius: 15,
-  },
-  moreButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ffffff',
-  },
-  moreMenu: {
-    marginTop: 10,
-    borderRadius: 15,
-    overflow: 'hidden',
-  },
-  moreMenuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  moreMenuItemText: {
-    flex: 1,
-    fontSize: 16,
-    color: '#ffffff',
-    marginLeft: 15,
-  },
+
   announcementCard: {
     padding: 20,
     borderRadius: 15,
