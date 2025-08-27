@@ -94,7 +94,6 @@ export default function EventDetailsScreen() {
         <View style={styles.eventImageContainer}>
           <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />
           <View style={styles.imageOverlay}>
-            <Text style={styles.imageTitle}>{event.title}</Text>
           </View>
           <View style={[styles.categoryIndicator, { backgroundColor: getCategoryColor(event.category) }]}>
             <Text style={styles.categoryIndicatorText}>
@@ -241,13 +240,13 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#f0f0f0',
     marginBottom: 15,
     textAlign: 'center',
   },
   eventDescription: {
     fontSize: 16,
-    color: '#666',
+    color: '#FFFFFF',
     lineHeight: 24,
     marginBottom: 20,
     textAlign: 'center',
@@ -279,7 +278,7 @@ const styles = StyleSheet.create({
   detailsTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#f0f0f0',
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -290,13 +289,13 @@ const styles = StyleSheet.create({
   },
   detailLabel: {
     fontSize: 16,
-    color: '#666',
+    color: '#FFFFFF',
     width: 100,
     fontWeight: '500',
   },
   detailValue: {
     fontSize: 16,
-    color: '#333',
+    color: '#f0f0f0',
     flex: 1,
     fontWeight: '400',
   },
@@ -312,7 +311,7 @@ const styles = StyleSheet.create({
   relatedEventsTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFFFF',
     marginBottom: 20,
     textAlign: 'center',
   },

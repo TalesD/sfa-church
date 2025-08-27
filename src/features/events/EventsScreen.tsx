@@ -198,55 +198,58 @@ export default function EventsScreen() {
   const EventItem = ({ event }: { event: Event }) => (
     <TouchableOpacity onPress={() => handleEventPress(event)}>
       <BlurView intensity={20} style={styles.eventItem}>
-        {/* Date Marker */}
-        <View style={styles.dateMarker}>
-          <Text style={styles.dayOfWeek}>{event.dayOfWeek}</Text>
-          <Text style={styles.dayNumber}>{event.dayNumber}</Text>
-        </View>
-
-        {/* Event Details */}
-        <View style={styles.eventDetails}>
-          <View style={styles.eventHeader}>
-            
-            <View style={styles.categoryBadge}>
-              <Ionicons 
-                name={getCategoryIcon(event.category) as any} 
-                size={12} 
-                color={getCategoryColor(event.category)} 
-              />
-              <Text style={[styles.categoryText, { color: getCategoryColor(event.category) }]}>
-                {event.category.replace('-', ' ').toUpperCase()}
-              </Text>
-            </View>
+        {/* First Row: Date Marker + Event Details + Event Image */}
+        <View style={styles.categoryBadge}>
+                 <Ionicons 
+                   name={getCategoryIcon(event.category) as any} 
+                   size={12} 
+                   color={getCategoryColor(event.category)} 
+                 />
+                 <Text style={[styles.categoryText, { color: getCategoryColor(event.category) }]}>
+                   {event.category.replace('-', ' ').toUpperCase()}
+                 </Text>
+               </View>
+        <View style={styles.firstRow}>
+          
+          {/* Date Marker */}
+          <View style={styles.dateMarker}>
+            <Text style={styles.dayOfWeek}>{event.dayOfWeek}</Text>
+            <Text style={styles.dayNumber}>{event.dayNumber}</Text>
           </View>
 
-          <Text style={styles.eventTitle}>{event.title}</Text>
-          
+                     {/* Event Details */}
+           <View style={styles.eventDetails}>
+             <View style={styles.eventHeader}>
+               
+               <Text style={styles.eventTitle}>{event.title}</Text>
+             </View>
+           </View>
+
+          {/* Event Image */}
+          <View style={styles.eventImageContainer}>
+            <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />            
+          </View>
+        </View>
+
+        {/* Second Row: Location */}
+        <View style={styles.secondRow}>
           {event.location && (
-            <Text style={styles.eventLocation}>{event.location}</Text>
+            <View style={styles.locationContainer}>
+              <Ionicons name="location" size={14} color="#666" />
+              <Text style={styles.eventLocation}>{event.location}</Text>
+            </View>
           )}
+        </View>
 
-
-          {event.isRecurring && (
+        {/* Third Row: Recurring */}
+        {event.isRecurring && (
+          <View style={styles.thirdRow}>
             <View style={styles.recurringBadge}>
               <Ionicons name="repeat" size={12} color="#666" />
               <Text style={styles.recurringText}>{event.recurringPattern}</Text>
             </View>
-          )}
-        </View>
-
-        {/* Event Image */}
-        <View style={styles.eventImageContainer}>
-          <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />
-          <View style={styles.imageOverlay}>
-            <Text style={styles.imageTitle}>{event.title}</Text>
           </View>
-          <View style={[styles.categoryIndicator, { backgroundColor: getCategoryColor(event.category) }]}>
-            <Text style={styles.categoryIndicatorText}>
-              {event.category.charAt(0).toUpperCase()}
-            </Text>
-          </View>
-        </View>
+        )}
       </BlurView>
     </TouchableOpacity>
   );
@@ -368,7 +371,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   eventItem: {
-    flexDirection: 'row',
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: 15,
     padding: 20,
@@ -378,6 +380,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  firstRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  secondRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+    justifyContent: 'flex-start',
+  },
+  thirdRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   dateMarker: {
     alignItems: 'center',
@@ -397,13 +422,12 @@ const styles = StyleSheet.create({
   },
   eventDetails: {
     flex: 1,
-    marginRight: 15,
+    marginRight: 20,
+    marginLeft: 15,
   },
   eventHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   eventTime: {
     fontSize: 14,
@@ -414,9 +438,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
     borderRadius: 12,
+    minWidth: 80,
+    alignSelf: 'flex-start',
+    marginBottom: 15,
   },
   categoryText: {
     fontSize: 10,
@@ -427,12 +454,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
   },
   eventLocation: {
     fontSize: 14,
     color: '#666',
-    marginBottom: 8,
+    marginLeft: 5,
   },
   eventDescription: {
     fontSize: 14,
@@ -459,6 +485,7 @@ const styles = StyleSheet.create({
   eventImage: {
     width: '100%',
     height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   imageOverlay: {
     position: 'absolute',
