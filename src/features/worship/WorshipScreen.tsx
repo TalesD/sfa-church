@@ -17,6 +17,7 @@ interface WorshipSchedule {
   id: string;
   title: string;
   date: string;
+  month: string;
   dayOfWeek: string;
   time: string;
   daysFromNow: string;
@@ -42,16 +43,17 @@ export default function WorshipScreen() {
   const upcomingSchedules: WorshipSchedule[] = [
     {
       id: '1',
-      title: 'Culto Noite',
-      date: '18 JUN',
-      dayOfWeek: 'Domingo',
-      daysFromNow: 'daqui a 5 dias',
+      title: 'Night Service',
+      date: '18',
+      month: 'JUN',
+      dayOfWeek: 'Sunday',
+      daysFromNow: 'in 5 days',
       time: '18:30',
       participants: [
-        { id: '1', name: 'João', avatar: 'https://i.pravatar.cc/150?img=1', role: 'Vocal' },
-        { id: '2', name: 'Maria', avatar: 'https://i.pravatar.cc/150?img=2', role: 'Guitarra' },
-        { id: '3', name: 'Pedro', avatar: 'https://i.pravatar.cc/150?img=3', role: 'Bateria' },
-        { id: '4', name: 'Ana', avatar: 'https://i.pravatar.cc/150?img=4', role: 'Teclado' },
+        { id: '1', name: 'John', avatar: 'https://i.pravatar.cc/150?img=1', role: 'Vocal' },
+        { id: '2', name: 'Mary', avatar: 'https://i.pravatar.cc/150?img=2', role: 'Guitar' },
+        { id: '3', name: 'Peter', avatar: 'https://i.pravatar.cc/150?img=3', role: 'Drums' },
+        { id: '4', name: 'Anna', avatar: 'https://i.pravatar.cc/150?img=4', role: 'Keyboard' },
       ],
       songsCount: 0,
       peopleCount: 4,
@@ -59,10 +61,11 @@ export default function WorshipScreen() {
     },
     {
       id: '2',
-      title: 'Culto Noite',
-      date: '25 JUN',
-      dayOfWeek: 'Domingo',
-      daysFromNow: 'daqui a 1 semana',
+      title: 'Night Service',
+      date: '25',
+      month: 'JUN',
+      dayOfWeek: 'Sunday',
+      daysFromNow: 'in 1 week',
       time: '18:30',
       participants: [
         { id: '5', name: 'Carlos', avatar: 'https://i.pravatar.cc/150?img=5', role: 'Vocal' },
@@ -76,14 +79,15 @@ export default function WorshipScreen() {
   const previousSchedules: WorshipSchedule[] = [
     {
       id: '3',
-      title: 'Culto Noite',
-      date: '11 JUN',
-      dayOfWeek: 'Domingo',
-      daysFromNow: 'há 2 dias',
+      title: 'Night Service',
+      date: '11',
+      month: 'JUN',
+      dayOfWeek: 'Sunday',
+      daysFromNow: '2 days ago',
       time: '18:30',
       participants: [
-        { id: '1', name: 'João', avatar: 'https://i.pravatar.cc/150?img=1', role: 'Vocal' },
-        { id: '2', name: 'Maria', avatar: 'https://i.pravatar.cc/150?img=2', role: 'Guitarra' },
+        { id: '1', name: 'John', avatar: 'https://i.pravatar.cc/150?img=1', role: 'Vocal' },
+        { id: '2', name: 'Mary', avatar: 'https://i.pravatar.cc/150?img=2', role: 'Guitar' },
       ],
       songsCount: 5,
       peopleCount: 2,
@@ -94,11 +98,7 @@ export default function WorshipScreen() {
   const ScheduleCard = ({ schedule }: { schedule: WorshipSchedule }) => (
     <TouchableOpacity onPress={() => navigation.navigate('ScheduleDetail', { scheduleId: schedule.id })}>
       <BlurView intensity={20} style={styles.scheduleCard}>
-        <View style={styles.scheduleHeader}>
-          <Text style={styles.scheduleDayInfo}>
-            {schedule.dayOfWeek} • {schedule.daysFromNow}
-          </Text>
-        </View>
+        
         
         <View style={styles.scheduleContent}>
           <Text style={styles.scheduleTitle}>{schedule.title}</Text>
@@ -162,17 +162,17 @@ export default function WorshipScreen() {
           style={[styles.tab, activeTab === 'upcoming' && styles.activeTab]}
           onPress={() => setActiveTab('upcoming')}
         >
-          <Text style={[styles.tabText, activeTab === 'upcoming' && styles.activeTabText]}>
-            Próximas
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'previous' && styles.activeTab]}
-          onPress={() => setActiveTab('previous')}
-        >
-          <Text style={[styles.tabText, activeTab === 'previous' && styles.activeTabText]}>
-            Anteriores
-          </Text>
+                  <Text style={[styles.tabText, activeTab === 'upcoming' && styles.activeTabText]}>
+          Upcoming
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.tab, activeTab === 'previous' && styles.activeTab]}
+        onPress={() => setActiveTab('previous')}
+      >
+        <Text style={[styles.tabText, activeTab === 'previous' && styles.activeTabText]}>
+          Previous
+        </Text>
         </TouchableOpacity>
       </View>
 
@@ -180,10 +180,13 @@ export default function WorshipScreen() {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.timelineContainer}>
           {activeTab === 'upcoming' ? (
-            upcomingSchedules.map((schedule) => (
+            upcomingSchedules.map((schedule, index) => (
               <View key={schedule.id} style={styles.timelineItem}>
                 <View style={styles.dateMarker}>
-                  <Text style={styles.dateText}>{schedule.date}</Text>
+                  <Text style={styles.dayNumber}>{schedule.date}</Text>
+                  <Text style={styles.dayInfo}>{schedule.dayOfWeek} • {schedule.daysFromNow}</Text>
+                  <Text style={styles.monthText}>{schedule.month}</Text>
+                  {index < upcomingSchedules.length - 1 && <View style={styles.timelineLine} />}
                 </View>
                 <View style={styles.scheduleWrapper}>
                   <ScheduleCard schedule={schedule} />
@@ -191,10 +194,13 @@ export default function WorshipScreen() {
               </View>
             ))
           ) : (
-            previousSchedules.map((schedule) => (
+            previousSchedules.map((schedule, index) => (
               <View key={schedule.id} style={styles.timelineItem}>
                 <View style={styles.dateMarker}>
-                  <Text style={styles.dateText}>{schedule.date}</Text>
+                  <Text style={styles.dayNumber}>{schedule.date}</Text>
+                  <Text style={styles.dayInfo}>{schedule.dayOfWeek} • {schedule.daysFromNow}</Text>
+                  <Text style={styles.monthText}>{schedule.month}</Text>
+                  {index < previousSchedules.length - 1 && <View style={styles.timelineLine} />}
                 </View>
                 <View style={styles.scheduleWrapper}>
                   <ScheduleCard schedule={schedule} />
@@ -227,6 +233,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 20,
     alignItems: 'center',
+    marginBottom: 10
   },
   title: {
     fontSize: 28,
@@ -283,14 +290,30 @@ const styles = StyleSheet.create({
     width: 50,
     alignItems: 'center',
   },
-  dateText: {
-    fontSize: 18,
+  dayNumber: {
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#4CAF50',
-    backgroundColor: 'rgba(76, 175, 80, 0.1)',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
+    marginBottom: 5,
+  },
+  dayInfo: {
+    fontSize: 12,
+    color: '#cccccc',
+    textAlign: 'center',
+    marginBottom: 3,
+  },
+  monthText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#4CAF50',
+    marginBottom: 10,
+  },
+  timelineLine: {
+    width: 2,
+    height: 40,
+    backgroundColor: '#4CAF50',
+    opacity: 0.3,
+    marginTop: 5,
   },
   scheduleWrapper: {
     flex: 1,
@@ -299,7 +322,7 @@ const styles = StyleSheet.create({
   scheduleCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: 15,
-    padding: 20,
+    padding: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

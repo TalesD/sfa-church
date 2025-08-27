@@ -214,7 +214,6 @@ export default function ScheduleDetailScreen() {
       {/* Header */}
       <BlurView intensity={20} style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#ffffff" />
         </TouchableOpacity>
         
         <Text style={styles.headerTitle}>Schedule</Text>

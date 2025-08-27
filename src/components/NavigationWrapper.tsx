@@ -57,12 +57,17 @@ export default function NavigationWrapper() {
           <Stack.Screen 
             name="Worship" 
             component={WorshipScreen}
-            options={{ title: 'Worship' }}
+            options={{ 
+              headerShown: false
+            }}
           />
           <Stack.Screen 
             name="ScheduleDetail" 
             component={ScheduleDetailScreen}
-            options={{ title: 'Schedule Details' }}
+            options={{ 
+              headerShown: true,
+              title: ''
+            }}
           />
           <Stack.Screen 
             name="Kids" 
