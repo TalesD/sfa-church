@@ -145,13 +145,13 @@ export default function LoginScreen() {
              </LinearGradient>
            </TouchableOpacity>
            
-           {/* Quick Access Info */}
+           {/* Quick Access Info 
            <View style={styles.quickAccessInfo}>
              <Text style={styles.quickAccessTitle}>Quick Access:</Text>
              <Text style={styles.quickAccessText}>• kids@church.com (Kids Ministry)</Text>
              <Text style={styles.quickAccessText}>• worship@church.com (Worship Ministry)</Text>
              <Text style={styles.quickAccessText}>• pastor@church.com (Pastor Access)</Text>
-           </View>
+           </View>*/}
          </BlurView>
        </View>
 

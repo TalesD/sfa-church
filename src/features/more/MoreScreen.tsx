@@ -60,7 +60,7 @@ export default function MoreScreen() {
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Header */}
+        {/* Header 
         <BlurView intensity={20} style={styles.header}>
           <View style={styles.headerContent}>
             <View>
@@ -71,7 +71,7 @@ export default function MoreScreen() {
               <Ionicons name="ellipsis-horizontal" size={40} color="#ffffff" />
             </View>
           </View>
-        </BlurView>
+        </BlurView> */}
 
         {/* Menu Items */}
         <View style={styles.section}>

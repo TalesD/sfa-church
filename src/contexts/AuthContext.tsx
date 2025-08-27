@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } else if (email.includes('kids')) {
       mockUser = {
         id: '2',
-        name: 'Kids Ministry Leader',
+        name: 'Kids Ministry',
         email: email,
         role: UserRole.LEADER,
         ministries: [Ministry.KIDS],
@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } else if (email.includes('worship')) {
       mockUser = {
         id: '3',
-        name: 'Worship Ministry Leader',
+        name: 'Worship Ministry',
         email: email,
         role: UserRole.LEADER,
         ministries: [Ministry.WORSHIP],
