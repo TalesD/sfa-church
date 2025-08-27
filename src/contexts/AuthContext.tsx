@@ -60,7 +60,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const userData = await AsyncStorage.getItem('user');
       if (userData) {
-        setUser(JSON.parse(userData));
+        const user = JSON.parse(userData);
+        setUser(user);
       }
     } catch (error) {
       console.error('Error loading user from storage:', error);
@@ -71,13 +72,49 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     // Mock login - replace with actual Firebase auth
-    const mockUser: User = {
-      id: '1',
-      name: 'João Silva',
-      email: email,
-      role: UserRole.MEMBER,
-      ministries: [Ministry.WORSHIP, Ministry.YOUTH],
-    };
+    let mockUser: User;
+    
+    if (email.includes('guest')) {
+      mockUser = {
+        id: '1',
+        name: 'Guest User',
+        email: email,
+        role: UserRole.MEMBER,
+        ministries: [],
+      };
+    } else if (email.includes('kids')) {
+      mockUser = {
+        id: '2',
+        name: 'Kids Ministry Leader',
+        email: email,
+        role: UserRole.LEADER,
+        ministries: [Ministry.KIDS],
+      };
+    } else if (email.includes('worship')) {
+      mockUser = {
+        id: '3',
+        name: 'Worship Ministry Leader',
+        email: email,
+        role: UserRole.LEADER,
+        ministries: [Ministry.WORSHIP],
+      };
+    } else if (email.includes('pastor')) {
+      mockUser = {
+        id: '4',
+        name: 'Pastor',
+        email: email,
+        role: UserRole.PASTOR,
+        ministries: [Ministry.WORSHIP, Ministry.KIDS, Ministry.YOUTH, Ministry.ADMIN],
+      };
+    } else {
+      mockUser = {
+        id: '1',
+        name: 'Guest User',
+        email: email,
+        role: UserRole.MEMBER,
+        ministries: [],
+      };
+    }
 
     setUser(mockUser);
     await AsyncStorage.setItem('user', JSON.stringify(mockUser));
