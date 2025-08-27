@@ -90,13 +90,13 @@ function TabNavigator() {
          options={{ headerShown: false }}
        />
        <Tab.Screen 
-         name="Groups" 
-         component={GroupsScreen}
+         name="Check-in" 
+         component={CheckInScreen}
          options={{ headerShown: false }}
        />
        <Tab.Screen 
-         name="Check-in" 
-         component={CheckInScreen}
+         name="Groups" 
+         component={GroupsScreen}
          options={{ headerShown: false }}
        />
     </Tab.Navigator>

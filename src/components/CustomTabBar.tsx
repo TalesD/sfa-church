@@ -47,10 +47,10 @@ const CustomTabBar: React.FC<TabBarProps> = ({ state, descriptors, navigation })
         return <Icon name="heart" size={iconSize} color={iconColor} />;
       case 'Events':
         return <Icon name="calendar" size={iconSize} color={iconColor} />;
-      case 'Groups':
-        return <Icon name="account-group" size={iconSize} color={iconColor} />;
       case 'CheckIn':
         return <Icon name="check-circle" size={iconSize} color={iconColor} />;
+      case 'Groups':
+        return <Icon name="account-group" size={iconSize} color={iconColor} />;
       default:
         return null;
     }

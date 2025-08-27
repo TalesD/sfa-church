@@ -131,44 +131,6 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* More Menu */}
-        <View style={styles.section}>
-                     <TouchableOpacity
-             style={styles.moreButton}
-             onPress={() => setShowMoreMenu(!showMoreMenu)}
-           >
-             <Text style={styles.moreButtonText}>More Options</Text>
-            <Ionicons
-              name={showMoreMenu ? 'chevron-up' : 'chevron-down'}
-              size={20}
-              color="#ffffff"
-            />
-          </TouchableOpacity>
-
-          {showMoreMenu && (
-            <BlurView intensity={20} style={styles.moreMenu}>
-                                            <MoreMenuItem
-                 icon="musical-notes"
-                 title="Worship Schedule"
-                 onPress={() => navigateToScreen('Worship')}
-                 visible={hasMinistryAccess(Ministry.WORSHIP)}
-               />
-               <MoreMenuItem
-                 icon="school"
-                 title="Kids Ministry"
-                 onPress={() => navigateToScreen('Kids')}
-                 visible={hasMinistryAccess(Ministry.KIDS)}
-               />
-               <MoreMenuItem
-                 icon="book"
-                 title="Daily Devotional"
-                 onPress={() => navigateToScreen('Devotional')}
-                 visible={true}
-               />
-            </BlurView>
-          )}
-        </View>
-
         {/* Announcements */}
         <View style={styles.section}>
                    <Text style={styles.sectionTitle}>Announcements</Text>
